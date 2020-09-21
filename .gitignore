@@ -1,0 +1,9 @@
+bower_components
+node_modules
+logs
+*.log
+.DS_Store
+bundle.js
+env.production.json
+env.staging.json
+.vscode

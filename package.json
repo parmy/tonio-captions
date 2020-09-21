@@ -1,0 +1,27 @@
+{
+  "name": "tonio-captions",
+  "version": "1.0.8",
+  "description": "This package allows vendors to provide live captions.",
+  "main": "tonio.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "keywords": [
+    "tonio"
+  ],
+  "author": "Tonio",
+  "license": "MIT",
+  "repository": "https://github.com/parmy/tonio-captions",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "luxon": "^1.25.0",
+    "firebase": "^7.21.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "eslint-plugin-promise": "^4.2.1"
+  }
+}
