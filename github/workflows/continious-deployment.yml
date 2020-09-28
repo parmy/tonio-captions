@@ -1,0 +1,70 @@
+name: Continious Deployment
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Checks code for issues
+      run: npm run lint
+    
+    - name: Run tests
+      run: npm test --if-present
+      env:
+        TONIO_URL : "https://api.tonio.com/v1"
+        PERFORMANCE_ID : "testopera"
+        CAPTION_ID : "0lSFEQMNL0Gi"
+        EMAIL : ${{ secrets.TONIO_PRODUCTION_EMAIL }}
+        PASSWORD : ${{ secrets.TONIO_PRODUCTION_PASSWORD }}
+
+  deploy:
+    needs: build
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Create production configuration
+      if: github.ref == 'refs/heads/master'
+      run: |
+          echo $TONIO_PRODUCTION_CONFIG >> env.json
+          cat env.json
+      shell: bash
+      env:
+        TONIO_STAGING_CONFIG : ${{ secrets.TONIO_PRODUCTION_CONFIG }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Publish to npm
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    
+

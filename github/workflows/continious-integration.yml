@@ -1,0 +1,37 @@
+name: Continious Integration
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Checks code for issues
+      run: npm run lint
+    
+    - name: Run tests
+      run: npm test --if-present
+      env:
+        TONIO_URL : "https://tonio-cms.ew.r.appspot.com/v1"
+        PERFORMANCE_ID : "testopera"
+        CAPTION_ID : "0lSFEQMNL0Gi"
+        EMAIL : ${{ secrets.TONIO_STAGING_EMAIL }}
+        PASSWORD : ${{ secrets.TONIO_STAGING_PASSWORD }}
