@@ -8,3 +8,5 @@ test.js
 demo/
 env.production.json
 env.staging.json
+.vscode
+.env

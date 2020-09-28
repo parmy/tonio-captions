@@ -75,7 +75,38 @@ class Tonio {
                 throw error;
             }
             else{
-                throw new TonioError("An error happened while initializing Tonio.")
+                throw new TonioError("An error happened while initializing Tonio client.")
+                    .causedBy(error);
+            }
+        }
+    }
+
+    /**
+     * Destroys Tonio client. Frees the resources of all associated services.
+     */
+    async destroy(){
+        try{
+            this._logger.info("Destroying Tonio client.");
+
+            if(!this.isInitialized){
+                throw new TonioError("Can't destroy not initialized Tonio client.")
+                    .addError("You haven't initialized Tonio.");
+            }
+
+            await this._firebase.delete();
+
+            this._firebase = null;
+
+            this._logger.info("Successfully destroyed Tonio client.");
+        }
+        catch(error){
+            this._logger.error("An error occured while destroying Tonio client.", error);
+
+            if(error instanceof TonioError){
+                throw error;
+            }
+            else{
+                throw new TonioError("An error happened while destroying Tonio client.")
                     .causedBy(error);
             }
         }
@@ -125,6 +156,11 @@ class Tonio {
         try{    
             this._logger.info(`Signing in user ${email} in to Tonio service.`);
 
+            if(!this.isInitialized){
+                throw new TonioError("Please, initialize for using Tonio first.")
+                    .addError("You haven't initialized Tonio.");
+            }
+
             if(this.isSignedIn){
                 let signedInEmail = this._firebase.auth().currentUser.email;
 
@@ -140,8 +176,13 @@ class Tonio {
         catch(error){
             this._logger.error(`An error occured while signing user ${email} in to Tonio service.`, error);
 
-            throw new TonioError("An error happened while trying signing you in.")
-                .causedBy(error);
+            if(error instanceof TonioError){
+                throw error;
+            }
+            else{
+                throw new TonioError("An error happened while trying signing you in.")
+                    .causedBy(error);
+            }
         }
     }
 
@@ -150,6 +191,13 @@ class Tonio {
      */
     async signOut(){
         try{
+            this._logger.info("Signing out user from Tonio service.");
+
+            if(!this.isInitialized){
+                throw new TonioError("Please, initialize for using Tonio first.")
+                    .addError("You haven't initialized Tonio.");
+            }
+
             if(this.isSignedIn){
                 let signedInEmail = this._firebase.auth().currentUser.email;
 
@@ -164,8 +212,13 @@ class Tonio {
         catch(error){
             this._logger.error("An error occured while signing user out.", error);
 
-            throw new TonioError("An error happened while signing you out.")
-                .causedBy(error);
+            if(error instanceof TonioError){
+                throw error;
+            }
+            else{
+                throw new TonioError("An error happened while signing you out.")
+                    .causedBy(error);
+            }
         }
     }
 
