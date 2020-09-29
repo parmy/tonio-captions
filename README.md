@@ -47,6 +47,13 @@ by using `tonio.isInitialized` property:
 console.log(`Initialized: ${tonio.isInitialized}.`);
 ```
 
+After finishing working with `tonio-captions` is is recommended to free up
+resources by using destroy method:
+
+``` js
+tonio.destroy();
+```
+
 ## Authentication
 
 After creation of instance and initialization of `tonio-captions`
