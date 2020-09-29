@@ -20,6 +20,16 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Copy production configuration
+      if: github.ref == 'refs/heads/master'
+      uses: actions-hub/gcloud@master
+      env:
+        PROJECT_ID: ${{ secrets.TONIO_PRODUCTION_PROJECT_ID }}
+        APPLICATION_CREDENTIALS: ${{ secrets.TONIO_PRODUCTION_KEY }}
+      with:
+        args: cp gs://vertical-planet-118619.appspot.com/configurations/package/env.json
+        cli: gsutil
     
     - name: Install dependencies
       run: npm install
