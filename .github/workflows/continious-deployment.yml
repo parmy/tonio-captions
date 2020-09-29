@@ -28,7 +28,7 @@ jobs:
         PROJECT_ID: ${{ secrets.TONIO_PRODUCTION_PROJECT_ID }}
         APPLICATION_CREDENTIALS: ${{ secrets.TONIO_PRODUCTION_KEY }}
       with:
-        args: cp gs://vertical-planet-118619.appspot.com/configurations/package/env.json
+        args: cp gs://vertical-planet-118619.appspot.com/configurations/package/env.json ./
         cli: gsutil
     
     - name: Install dependencies
