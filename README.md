@@ -2,7 +2,7 @@
 
 A client for interaction with the Tonio service. It allows vendors to provide live captions.
 
-[![Version npm](https://img.shields.io/npm/v/tonio-captions.svg?style=flat-square)](https://www.npmjs.com/package/tonio-captions)[![npm Downloads](https://img.shields.io/npm/dm/tonio-captions.svg?style=flat-square)](https://npmcharts.com/compare/tonio-captions?minimal=true)
+[![Version npm](https://img.shields.io/npm/v/tonio-captions.svg?style=flat-square)](https://www.npmjs.com/package/tonio-captions)  ![Continious Integration](https://github.com/parmy/tonio-captions/workflows/Continious%20Integration/badge.svg?branch=develop&event=push)  ![Continious Deployment](https://github.com/parmy/tonio-captions/workflows/Continious%20Deployment/badge.svg?branch=master&event=push)  [![npm Downloads](https://img.shields.io/npm/dm/tonio-captions.svg?style=flat-square)](https://npmcharts.com/compare/tonio-captions?minimal=true)
 
 [![NPM](https://nodei.co/npm/tonio-captions.png?downloads=true&downloadRank=true)](https://nodei.co/npm/tonio-captions/)
 
