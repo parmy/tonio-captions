@@ -1,6 +1,6 @@
 {
   "name": "tonio-captions",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "This package allows vendors to provide live captions.",
   "main": "tonio.js",
   "scripts": {
